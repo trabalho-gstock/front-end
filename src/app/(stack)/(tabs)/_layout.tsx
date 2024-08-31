@@ -1,9 +1,10 @@
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {
   return (
     <Tabs
+      initialRouteName="loginScreen"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -13,7 +14,7 @@ export default function TabLayout() {
         },
         tabBarItemStyle: {
           paddingBottom: 34,
-          paddingTop: 14,
+          paddingTop: 16,
         },
         tabBarShowLabel: false,
         // tabBarActiveTintColor: ,
@@ -21,10 +22,26 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
+        name="products"
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="package" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="index"
         options={{
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons name="home" size={size} color={color} />
+            <Feather name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="totalProducts"
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="box" size={size} color={color} />
           ),
         }}
       />

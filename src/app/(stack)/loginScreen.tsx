@@ -36,7 +36,7 @@ export default function LoginScreen() {
         </Text>
         <View className="w-full px-10 gap-16 pt-24">
           <CustomInput
-            icon="face"
+            icon="user"
             placeholder="Digite seu CPF"
             iconColor="#9A9A9A"
             iconSize={20}
@@ -46,8 +46,8 @@ export default function LoginScreen() {
             onChangeText={setCPF}
           />
           <CustomInput
-            icon="password"
-            iconRight="compass-calibration"
+            icon="lock"
+            iconRight="eye"
             placeholder="Digite sua senha"
             iconColor="#9A9A9A"
             iconSize={20}

@@ -1,10 +1,10 @@
 import React from "react";
 import { TextInput, View, TextInputProps } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 interface CustomInputProps extends TextInputProps {
-  icon: keyof typeof MaterialIcons.glyphMap;
-  iconRight?: keyof typeof MaterialIcons.glyphMap;
+  icon: keyof typeof Feather.glyphMap;
+  iconRight?: keyof typeof Feather.glyphMap;
   inputStyle?: string;
   containerStyle?: string;
   iconColor?: string;
@@ -16,7 +16,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   iconRight,
   inputStyle,
   containerStyle,
-  iconColor = "#000", // Cor padrão do ícone, ajuste conforme necessário
+  iconColor = "#000",
   iconSize = 24,
   placeholder,
   ...rest
@@ -34,12 +34,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
     <View
       className={`flex-row items-center rounded-lg px-3 h-14 bg-white shadow-lg shadow-gray-500/50 ${containerStyle}`}
     >
-      <MaterialIcons
-        name={icon}
-        size={iconSize}
-        color={iconColor}
-        className="mr-2"
-      />
+      <Feather name={icon} size={iconSize} color={iconColor} className="mr-2" />
       <TextInput
         className={`flex-1 text-black text-base font-latoRegular ${inputStyle}`}
         placeholder={placeholder}
@@ -48,7 +43,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         {...rest}
       />
       {iconRight && (
-        <MaterialIcons
+        <Feather
           name={iconRight}
           size={iconSize}
           color={iconColor}

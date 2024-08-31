@@ -22,7 +22,7 @@ export default function RegisterScreen() {
 
   const router = useRouter();
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (!name || !cpf || !password || !confirmPassword) {
       Alert.alert("Erro", "Todos os campos são obrigatórios.");
       return;
@@ -32,8 +32,35 @@ export default function RegisterScreen() {
       Alert.alert("Erro", "As senhas não coincidem.");
       return;
     }
-  };
 
+    try {
+      const response = await fetch("http://192.168.0.142:8080/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cpf,
+          name,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error response:", errorText);
+        throw new Error("Falha ao cadastrar usuário");
+      }
+
+      const result = await response.json();
+      console.log("Success response:", result);
+
+      Alert.alert("Sucesso", "Usuário cadastrado com sucesso.");
+      router.push("../loginScreen");
+    } catch (error: any) {
+      Alert.alert("Erro", error.message || "Erro ao cadastrar usuário");
+    }
+  };
   return (
     <SafeAreaView
       className="bg-white"
@@ -47,7 +74,7 @@ export default function RegisterScreen() {
         <Text className="text-4xl font-latoBlack">Crie sua conta :)</Text>
         <View className="w-full px-10 gap-12 pt-14">
           <CustomInput
-            icon="face"
+            icon="user"
             placeholder="Digite seu Nome"
             iconColor="#9A9A9A"
             iconSize={20}
@@ -57,7 +84,7 @@ export default function RegisterScreen() {
             onChangeText={setName}
           />
           <CustomInput
-            icon="face"
+            icon="smile"
             placeholder="Digite seu CPF"
             iconColor="#9A9A9A"
             iconSize={20}
@@ -68,8 +95,8 @@ export default function RegisterScreen() {
             maxLength={11}
           />
           <CustomInput
-            icon="password"
-            iconRight="compass-calibration"
+            icon="lock"
+            iconRight="eye"
             placeholder="Digite sua senha"
             iconColor="#9A9A9A"
             iconSize={20}
@@ -79,8 +106,8 @@ export default function RegisterScreen() {
             onChangeText={setPassword}
           />
           <CustomInput
-            icon="password"
-            iconRight="compass-calibration"
+            icon="lock"
+            iconRight="eye"
             placeholder="Confirme sua senha"
             iconColor="#9A9A9A"
             iconSize={20}
